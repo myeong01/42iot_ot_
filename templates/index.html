@@ -1,88 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Print-Reservation</title>
-</head>
-
-<body>
-    <div>
-        <script>
-            function ajax(url) {
-                return new Promise(function (resolve, reject) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', url);
-                    xhr.withCredentials = true;
-                    xhr.onload = function () {
-                        if (xhr.status >= 200 && xhr.status < 400)
-                            resolve(JSON.parse(xhr.responseText));
-                        else
-                            reject(Error(xhr.statusText));
-                    }
-                    /*xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200)
-                            resolve(JSON.parse(xhr.responseText));
-                        else
-                            reject(Error(req.statusText));
-                    }*/
-                    xhr.onerror = function () {
-                        reject(Error("network error"));
-                    };
-                    xhr.send();
-                });
-            }
-
-            function printBtnClick() {
-                Promise.all([
-                    ajax('https://reservation.42network.org/api/me/events'),
-                    ajax('https://reservation.42network.org/api/me/user')])
-                    .then(function (results) {
-                        //results[0] reserved events
-                        var tzs = results[0];
-                        var _str = {};
-                        var rsv = "";
-                        for (var i = 0; i < tzs.length; i++) {
-                            var _dt = new Date(tzs[i].Event.begin_at);
-                            if (_dt.toDateString() == new Date().toDateString()) {
-                                _str[String(_dt.getHours())] = tzs[i].is_subscribed == true ? 'O' : 'X';
-                            }
-                        }
-                        console.log(_str);
-                        for (var key in _str) {
-                            rsv = rsv + key + ":" + _str[key] + '<br>';
-                        }
-                        console.log(rsv);
-                        document.querySelector('#reservations').innerHTML = rsv;
-
-                        //results[1] login id
-                        var login_id = results[1].login;
-                        console.log(login_id);
-                        document.querySelector('#clusterid').innerHTML = login_id;
-
-                        //print
-                        var xhr = new XMLHttpRequest();
-                        var body = "";
-                        for (var key in _str) {
-                            body = body + key + "=" + _str[key] + "&";
-                        }
-                        body = body + "login=" + login_id;
-                        console.log(body);
-                        xhr.open('GET', '/print?' + body);
-                        xhr.send();
-                    })
-            }
-        </script>
-        <div>로그인이 완료되면 출력 버튼을 누르세요</div>
-        <div>오류 발생시 이 <a href="https://reservation.42network.org/static/#/" target="_blank">링크</a>로
-        로그인하신 뒤 돌아와서 <a onClick="window.location.reload()">새로고침</a>해주세요.<br>
-        예약 사이트 자동 로그인 설정을 하면 편합니다.
-		</div>
-        <div style="text-align: center"><a href="#" onclick="printBtnClick();">[출력]</a></div>
-        <div id="clusterid"></div>
-        <div id="reservations"></div>
-    </div>
-</body>
-
-</html>
+<form action="http://localhost:5000/print">
+<label for="id">Intra Id</label><br>
+<input type="text" name="id"><br>
+<select name = "guild">
+	<option value="GUN">GUN</option>
+	<option value="GON">GON</option>
+	<option value="GAM">GAM</option>
+	<option value="LEE">LEE</option>
+</select>
+<input type="submit">
+	
+</form>

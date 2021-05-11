@@ -8,7 +8,7 @@ BROTHER_IP = os.environ["BROTHER_IP"]
 def home():
     return render_template("index.html")
 
-# @app.route("/print", methods=['GET'])
+@app.route("/print", methods=['GET'])
 def print_test():
     from brother import BrotherPrint
     import socket
@@ -20,11 +20,17 @@ def print_test():
         printjob = BrotherPrint(s)
         printjob.template_mode()
         printjob.template_init()
-        printjob.select_and_insert("id", "myoon")
-        printjob.select_and_insert("group", "gam")
+        printjob.select_and_insert("id", request.args.get('id'))
+        printjob.select_and_insert("group", request.args.get('guild'))
         printjob.template_print()
-    return ('printed')
-        
+    return render_template("index.html")
+
+
+#@app.route("/print", methods=['GET'])
+def test():
+    print("test")
+    return ('test')
+
+
 if __name__=='__main__':
-    print_test()
     app.run(host='0.0.0.0')
