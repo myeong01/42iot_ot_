@@ -1,12 +1,55 @@
-<form action="http://localhost:5000/print">
-<label for="id">Intra Id</label><br>
-<input type="text" name="id"><br>
-<select name = "guild">
-	<option value="GUN">GUN</option>
-	<option value="GON">GON</option>
-	<option value="GAM">GAM</option>
-	<option value="LEE">LEE</option>
-</select>
-<input type="submit">
-	
-</form>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>42 IOT</title>
+		<style>
+			body {
+				background-image: url('images/background42.jpeg');
+				background-size: auto;
+				background-position: center top;
+			}
+			div {
+				align-items: center;
+				text-align: center;
+				vertical-align: middle;
+				margin: 0;
+				position: absolute;
+				top: 25%;
+				width: 100%;
+				height: 100%;
+			}
+			h1 {
+				font-size: 45px;
+				letter-spacing: 20px;
+				color: white;
+			}
+			lable {
+				vertical-align: middle;
+				font-size: 25px;
+				letter-spacing: 10px;
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="http://localhost:5000/print">
+			<div>
+				<h1>42 IOT</h1>
+				<br/>
+				<box style="text-align: left;">
+					<lable for="id">Intra Id</lable>
+					<input type="text" placeholder="Intra Id" name="id" style="border: none; background-color: rgba(0, 0, 0, 0.2); opacity: 0.8; color: white; padding: 2px 15px; height: 25px; font-size: 20px; vertical-align: middle; letter-spacing: 5px;"><br><br>
+					<lable for="guild">Guild</lable>
+					<select name = "guild">
+						<option value="GUN">GUN</option>
+						<option value="GON">GON</option>
+						<option value="GAM">GAM</option>
+						<option value="LEE">LEE</option>
+					</select>
+					<input type="submit">
+				</box>
+			</div>
+		</form>
+	</body>
+</html>
