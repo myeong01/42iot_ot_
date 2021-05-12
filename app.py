@@ -21,15 +21,18 @@ def print_test():
     from datetime import datetime
 
     try:
-        user_id = id_by_name[request.args.get('name')]
+        cur_user_name = request.args.get('name')
+        user_id = id_by_name[cur_user_name]
         guild_name = guild_by_id[user_id]
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((BROTHER_IP,9100))
             printjob = BrotherPrint(s)
             printjob.template_mode()
             printjob.template_init()
-            printjob.select_and_insert("id", request.args.get('name'))
-            printjob.select_and_insert("group", request.args.get('guild'))
+            printjob.select_and_insert("id", cur_user_name)
+            printjob.select_and_insert("group", guild_name)
+            print(cur_user_name)
+            print(guild_name)
             printjob.template_print()
         return render_template("index.html")
     except:
