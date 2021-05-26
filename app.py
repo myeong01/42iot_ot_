@@ -21,15 +21,10 @@ def print_test():
         printjob.template_mode()
         printjob.template_init()
         printjob.select_and_insert("id", request.args.get('id'))
-        printjob.select_and_insert("group", request.args.get('guild'))
         printjob.template_print()
     return render_template("index.html")
 
 
-#@app.route("/print", methods=['GET'])
-def test():
-    print("test")
-    return ('test')
 
 
 if __name__=='__main__':
